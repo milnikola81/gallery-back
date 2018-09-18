@@ -24,8 +24,8 @@ class GalleriesFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:2|max:255',
-            'description' => 'max:1000'
+            'title' => 'string|required|min:2|max:255',
+            'description' => 'string|max:1000'
         ];
     }
 }

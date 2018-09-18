@@ -27,7 +27,11 @@ class UsersPostRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed',
+            'password' => 
+                ['required', 
+                'min:8', 
+                'regex:/^.*(?=.*[0-9]).*$/', 
+                'confirmed'],
             'terms_accepted' => 'required|accepted'
         ];
     }

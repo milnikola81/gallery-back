@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Gallery;
 
 class CommentsTableSeeder extends Seeder
 {
@@ -11,6 +12,8 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Gallery::all()->each(function (Gallery $g){
+            $g->comments()->saveMany(factory(App\Comment::class, 4)->make());
+        });
     }
 }

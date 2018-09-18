@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\User;
 
 class GalleriesTableSeeder extends Seeder
 {
@@ -11,6 +12,8 @@ class GalleriesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        User::all()->each(function (User $u){
+            $u->galleries()->saveMany(factory(App\Gallery::class, 3)->make());
+        });
     }
 }
