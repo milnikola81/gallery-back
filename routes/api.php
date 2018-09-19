@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('users', 'UsersController');
-Route::resource('authors', 'UsersController');
+Route::get('authors/{id}', 'GalleriesController@showAuthor');
 Route::resource('galleries', 'GalleriesController');
 Route::resource('comments', 'CommentsController');
 

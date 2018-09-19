@@ -40,11 +40,21 @@ class GalleriesController extends Controller
         }
     }
 
+    public function showAuthor($user_id)
+    {
+        return Gallery::with('user')
+        ->where('user_id', $user_id)
+        ->with('images')
+        ->paginate(1);
+    }
+
     public function show($id)
     {
         return Gallery::with('user')
         ->with('images')
         ->findOrFail($id);
     }
+
+
 }
 

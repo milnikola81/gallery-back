@@ -10,17 +10,17 @@ use App\Http\Requests\UsersFormRequest;
 class UsersController extends Controller
 {
         
-    public function show($id, Request $request)
-    {
-        $searchTerm = $request->input('search', '');
-        return Gallery::with('user')
-        ->with('images')
-        ->where('user_id', $id)
-        ->where('title', 'like', '%' . $searchTerm .'%')
-        ->orWhere('user_id', $id)
-        ->where('description', 'like', '%' . $searchTerm .'%')
-        ->paginate(1);
-    }
+    // public function show($id, Request $request)
+    // {
+    //     $searchTerm = $request->input('search', '');
+    //     return Gallery::with('user')
+    //     ->with('images')
+    //     ->where('user_id', $id)
+    //     ->where('title', 'like', '%' . $searchTerm .'%')
+    //     ->orWhere('user_id', $id)
+    //     ->where('description', 'like', '%' . $searchTerm .'%')
+    //     ->paginate(1);
+    // }
 
     public function store(UsersFormRequest $request)
     {
