@@ -17,10 +17,18 @@ class GalleriesController extends Controller
         ]);
     }
 
-    public function index(Request $request) {
+    public function index() {
         return Gallery::
         with('user')
+        ->with('images')
         ->get();
+    }
+
+    public function show($id)
+    {
+        return Gallery::with('user')
+        ->with('images')
+        ->findOrFail($id);
     }
 }
 

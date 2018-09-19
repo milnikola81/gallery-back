@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Gallery;
 use App\Http\Requests\UsersPostRequest;
 
 class UsersController extends Controller
@@ -20,5 +21,13 @@ class UsersController extends Controller
             'terms_accepted' => $request->terms_accepted,
             'remember_token' => str_random(10)
         ]);
+    }
+
+    public function show($id, Request $request)
+    {
+        return Gallery::with('user')
+        ->with('images')
+        ->where('user_id', $id)
+        ->get();
     }
 }
