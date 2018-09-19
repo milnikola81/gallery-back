@@ -40,11 +40,16 @@ class GalleriesController extends Controller
         }
     }
 
-    public function showAuthor($user_id)
+    public function showAuthor($user_id, Request $request)
     {
+        $searchTerm = $request->input('search', '');
         return Gallery::with('user')
-        ->where('user_id', $user_id)
         ->with('images')
+        ->where('user_id', $user_id)
+        ->where('title', 'like', '%' . $searchTerm .'%')
+        ->orwhere('user_id', $user_id)
+        ->where('description', 'like', '%' . $searchTerm .'%')
+        ->orderBy('created_at', 'DESC')
         ->paginate(1);
     }
 
