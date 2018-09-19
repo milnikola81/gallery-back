@@ -21,7 +21,7 @@ class GalleriesController extends Controller
         return Gallery::
         with('user')
         ->with('images')
-        ->get();
+        ->paginate(10);
     }
 
     public function show($id)

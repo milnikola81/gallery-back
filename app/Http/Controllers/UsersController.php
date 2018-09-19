@@ -28,6 +28,6 @@ class UsersController extends Controller
         return Gallery::with('user')
         ->with('images')
         ->where('user_id', $id)
-        ->get();
+        ->paginate(1);
     }
 }
