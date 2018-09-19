@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Gallery;
 use App\Http\Requests\GalleryPostRequest;
 
-class GalleryController extends Controller
+class GalleriesController extends Controller
 {
     public function store(GalleriesPostRequest $request)
     {
@@ -16,4 +16,11 @@ class GalleryController extends Controller
             'user_id' => $request->user_id
         ]);
     }
+
+    public function index(Request $request) {
+        return Gallery::
+        with('user')
+        ->get();
+    }
 }
+
