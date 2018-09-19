@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Gallery;
-use App\Http\Requests\UsersPostRequest;
+use App\Http\Requests\UsersFormRequest;
 
 class UsersController extends Controller
 {
@@ -22,7 +22,7 @@ class UsersController extends Controller
         ->paginate(1);
     }
 
-    public function store(UsersPostRequest $request)
+    public function store(UsersFormRequest $request)
     {
         return User::create([
             'first_name' => $request->first_name,

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Gallery;
-use App\Http\Requests\GalleryPostRequest;
+use App\Image;
+use App\Http\Requests\GalleriesFormRequest;
 
 class GalleriesController extends Controller
 {
@@ -20,14 +21,23 @@ class GalleriesController extends Controller
         ->orderBy('created_at', 'DESC')
         ->paginate(10);
     }
-    
-    public function store(GalleriesPostRequest $request)
+
+    public function store(GalleriesFormRequest $request)
     {
-        return Gallery::create([
+        $gallery = Gallery::create([
             'title' => $request->title,
             'description' => $request->description,
             'user_id' => $request->user_id
         ]);
+
+        $images = $request->images;
+
+        foreach($images as $image) {
+            Image::create([
+                'image_url' => $image,
+                'gallery_id' => $gallery->id
+            ]);
+        }
     }
 
     public function show($id)
