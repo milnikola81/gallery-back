@@ -45,6 +45,7 @@ class GalleriesController extends Controller
         $searchTerm = $request->input('search', '');
         return Gallery::with('user')
         ->with('images')
+        ->with('comments.user')
         ->where('user_id', $user_id)
         ->where('title', 'like', '%' . $searchTerm .'%')
         ->orwhere('user_id', $user_id)
@@ -57,6 +58,7 @@ class GalleriesController extends Controller
     {
         return Gallery::with('user')
         ->with('images')
+        ->with('comments.user')
         ->findOrFail($id);
     }
 
