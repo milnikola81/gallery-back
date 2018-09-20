@@ -11,15 +11,16 @@ class GalleriesController extends Controller
 {
     public function index(Request $request) {
         $searchTerm = $request->input('search', '');
-        return Gallery::with('user')
-        ->with('images')
-        ->with('comments')
-        ->where('title', 'like', '%' . $searchTerm .'%')
-        ->orWhere('description', 'like', '%' . $searchTerm .'%')
-        // ->orWhere('first_name', 'like', '%' . $searchTerm .'%')
-        // ->orWhere('last_name', 'like', '%' . $searchTerm .'%')
-        ->orderBy('created_at', 'DESC')
-        ->paginate(10);
+        $query = Gallery::query();
+        $query->with('user', 'images');
+        $query->whereHas('user', function($query) use ($searchTerm) {
+            $query->where('title', 'like', '%'.$searchTerm.'%')
+                    ->orWhere('description', 'like', '%'.$searchTerm.'%')
+                        ->orWhere('first_name', 'like', '%'.$searchTerm.'%')
+                            ->orWhere('last_name', 'like', '%'.$searchTerm.'%');
+        });
+        $galleries = $query->orderBy('created_at', 'DESC')->paginate(10);
+        return $galleries;
     }
 
     public function store(GalleriesFormRequest $request)

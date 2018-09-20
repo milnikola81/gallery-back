@@ -18,7 +18,7 @@ class CommentsController extends Controller
         ->load('user');
     }
 
-    public function destroy($id) {
-        return Comment::destroy($id);
+    public function destroy($comment) {
+        return Comment::destroy($comment);
     }
 }
