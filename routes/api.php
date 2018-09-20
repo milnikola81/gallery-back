@@ -20,6 +20,7 @@ Route::resource('users', 'UsersController');
 Route::get('authors/{id}', 'GalleriesController@showAuthor');
 Route::resource('galleries', 'GalleriesController');
 Route::resource('comments', 'CommentsController');
+Route::resource('comments/{id}', 'CommentsController');
 
 Route::group([
 

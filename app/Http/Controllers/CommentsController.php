@@ -17,4 +17,8 @@ class CommentsController extends Controller
         ])
         ->load('user');
     }
+
+    public function destroy($id) {
+        return Comment::destroy($id);
+    }
 }
