@@ -25,7 +25,7 @@ class GalleriesFormRequest extends FormRequest
     {
         return [
             'title' => 'string|required|min:2|max:255',
-            'description' => 'string|max:1000',
+            'description' => 'max:1000',
             'images' => 'required|array|min:1',
             'images.*' => ['regex:/^(http)?s?:?(\/\/[^\']*\.(?:png|jpg|jpeg))/']
         ];

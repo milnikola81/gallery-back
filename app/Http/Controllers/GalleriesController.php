@@ -67,6 +67,32 @@ class GalleriesController extends Controller
         return Gallery::destroy($id);
     }
 
+    public function update(GalleriesFormRequest $request, $id)
+    {
+        // return $request;
+        $gallery = Gallery::findOrFail($id);
+        $gallery->images()->delete();
+        // $gallery->images = array();
+        $gallery->update($request->all());
+
+        $images = $request->images;
+
+        foreach($images as $image) {
+            Image::create([
+                'image_url' => $image,
+                'gallery_id' => $gallery->id
+            ]);
+        }
+        // return Gallery::findOrFail($id)
+        // ->update($request->all());
+        
+    }
+    // public function update(CarsPost $request, $id)
+    // {
+    //     $car = Car::findOrFail($id);
+    //     $car->update($request->all());
+    //     return $car;
+    // }
 
 }
 
