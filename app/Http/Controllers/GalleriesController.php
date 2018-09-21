@@ -15,20 +15,7 @@ class GalleriesController extends Controller
 
     public function store(GalleriesFormRequest $request)
     {
-        $gallery = Gallery::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'user_id' => $request->user_id
-        ]);
-
-        $images = $request->images;
-
-        foreach($images as $image) {
-            Image::create([
-                'image_url' => $image,
-                'gallery_id' => $gallery->id
-            ]);
-        }
+        Gallery::storeGallery($request);
     }
 
     public function showAuthor($user_id, Request $request)
@@ -47,18 +34,7 @@ class GalleriesController extends Controller
 
     public function update(GalleriesFormRequest $request, $id)
     {
-        $gallery = Gallery::findOrFail($id);
-        $gallery->images()->delete();
-        $gallery->update($request->all());
-
-        $images = $request->images;
-
-        foreach($images as $image) {
-            Image::create([
-                'image_url' => $image,
-                'gallery_id' => $gallery->id
-            ]);
-        }       
+        return Gallery::updateGallery($request, $id);   
     }
 }
 

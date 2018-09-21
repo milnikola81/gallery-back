@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Image;
 
 class Gallery extends Model
 {
@@ -58,5 +59,41 @@ class Gallery extends Model
         ->with('comments.user')
         ->findOrFail($id);
     }
+
+    public static function storeGallery($request)
+    {
+        $gallery = Gallery::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'user_id' => $request->user_id
+        ]);
+
+        $images = $request->images;
+
+        foreach($images as $image) {
+            Image::create([
+                'image_url' => $image,
+                'gallery_id' => $gallery->id
+            ]);
+        }
+    }
+
+    public static function updateGallery($request, $id)
+    {
+        $gallery = Gallery::findOrFail($id);
+        $gallery->images()->delete();
+        $gallery->update($request->all());
+
+        $images = $request->images;
+
+        foreach($images as $image) {
+            Image::create([
+                'image_url' => $image,
+                'gallery_id' => $gallery->id
+            ]);
+        }       
+    }
+
+
 
 }
