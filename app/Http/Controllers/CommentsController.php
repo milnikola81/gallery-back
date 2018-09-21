@@ -10,12 +10,7 @@ class CommentsController extends Controller
 {
     public function store(CommentsFormRequest $request)
     {
-        return Comment::create([
-            'content' => $request->content,
-            'gallery_id' => $request->gallery_id,
-            'user_id' => $request->user_id,
-        ])
-        ->load('user');
+        return Comment::addComment($request);
     }
 
     public function destroy($comment) {

@@ -18,4 +18,13 @@ class Comment extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public static function addComment($request) {
+        return Comment::create([
+            'content' => $request->content,
+            'gallery_id' => $request->gallery_id,
+            'user_id' => $request->user_id,
+        ])
+        ->load('user');
+    }
 }
