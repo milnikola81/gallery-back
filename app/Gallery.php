@@ -16,15 +16,18 @@ class Gallery extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function images() {
+    public function images() 
+    {
         return $this->hasMany('App\Image');
     }
 
-    public function comments() {
+    public function comments() 
+    {
         return $this->hasMany('App\Comment');
     }
 
-    public static function getGalleries($request) {
+    public static function getGalleries($request) 
+    {
         $searchTerm = $request->input('search', '');
         $query = Gallery::query();
         $query->with('user', 'images');
@@ -38,7 +41,8 @@ class Gallery extends Model
         return $galleries;
     }
 
-    public static function getAuthor($user_id, $request) { 
+    public static function getAuthor($user_id, $request) 
+    { 
         $searchTerm = $request->input('search', '');
         
         return Gallery::with('user')

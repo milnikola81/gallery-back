@@ -13,7 +13,8 @@ class CommentsController extends Controller
         return Comment::addComment($request);
     }
 
-    public function destroy($comment) {
+    public function destroy($comment) 
+    {
         return Comment::destroy($comment);
     }
 }
